@@ -1,0 +1,63 @@
+import { PrismaService } from '../prisma/prisma.service';
+import { CreateOrderDto } from './dto';
+export declare class OrdersService {
+    private prisma;
+    private readonly logger;
+    constructor(prisma: PrismaService);
+    create(userId: string, dto: CreateOrderDto): Promise<{
+        id: any;
+        orderNumber: any;
+        status: any;
+        subtotal: number;
+        deliveryFee: number;
+        totalPrice: number;
+        recipientName: any;
+        recipientPhone: any;
+        recipientAddress: any;
+        deliveryDate: any;
+        deliveryTime: any;
+        isAnonymous: any;
+        messageCard: any;
+        notes: any;
+        items: any;
+        createdAt: any;
+    }>;
+    findAllByUser(userId: string): Promise<{
+        id: any;
+        orderNumber: any;
+        status: any;
+        subtotal: number;
+        deliveryFee: number;
+        totalPrice: number;
+        recipientName: any;
+        recipientPhone: any;
+        recipientAddress: any;
+        deliveryDate: any;
+        deliveryTime: any;
+        isAnonymous: any;
+        messageCard: any;
+        notes: any;
+        items: any;
+        createdAt: any;
+    }[]>;
+    findOne(id: string, userId?: string): Promise<{
+        id: any;
+        orderNumber: any;
+        status: any;
+        subtotal: number;
+        deliveryFee: number;
+        totalPrice: number;
+        recipientName: any;
+        recipientPhone: any;
+        recipientAddress: any;
+        deliveryDate: any;
+        deliveryTime: any;
+        isAnonymous: any;
+        messageCard: any;
+        notes: any;
+        items: any;
+        createdAt: any;
+    }>;
+    private generateOrderNumber;
+    private formatOrder;
+}

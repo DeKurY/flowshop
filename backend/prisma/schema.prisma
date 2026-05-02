@@ -1,0 +1,449 @@
+// ─── Pro Buton Flower Shop — Prisma Schema ───
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── ENUMS ───
+
+enum UserRole {
+  CUSTOMER
+  ADMIN
+}
+
+enum ProductStatus {
+  IN_STOCK
+  MADE_TO_ORDER
+  OUT_OF_STOCK
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  ASSEMBLING
+  DELIVERING
+  DELIVERED
+  CANCELLED
+}
+
+enum FlowerType {
+  ROSES
+  TULIPS
+  PEONIES
+  LILIES
+  CHRYSANTHEMUMS
+  HYDRANGEAS
+  ORCHIDS
+  SUNFLOWERS
+  MIXED
+  DRIED
+  OTHER
+}
+
+enum Occasion {
+  BIRTHDAY
+  WEDDING
+  ANNIVERSARY
+  VALENTINES
+  MOTHERS_DAY
+  CONGRATULATIONS
+  SYMPATHY
+  THANK_YOU
+  JUST_BECAUSE
+  CORPORATE
+  OTHER
+}
+
+enum VariantSize {
+  S
+  M
+  L
+  XL
+}
+
+enum DiscountType {
+  PERCENTAGE
+  FIXED
+}
+
+enum PromotionTarget {
+  PRODUCT
+  CATEGORY
+  ORDER
+}
+
+// ─── MODELS ───
+
+model User {
+  id    String   @id @default(uuid())
+  email String   @unique
+  name  String
+  phone String?
+  role  UserRole @default(CUSTOMER)
+
+  referralCode String? @unique @map("referral_code")
+  bonusPoints  Int     @default(0) @map("bonus_points")
+
+  referredById  String? @map("referred_by_id")
+  referredBy    User?   @relation("UserReferrals", fields: [referredById], references: [id])
+  referredUsers User[]  @relation("UserReferrals")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  orders Order[]
+  cart   Cart?
+
+  rewardsEarned    ReferralReward[] @relation("ReferrerRewards")
+  rewardsTriggered ReferralReward[] @relation("ReferredUserRewards")
+
+  @@map("users")
+}
+
+model Category {
+  id          String   @id @default(uuid())
+  name        String
+  slug        String   @unique
+  description String?
+  imageUrl    String?  @map("image_url")
+  sortOrder   Int      @default(0) @map("sort_order")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  products   Product[]
+  promotions PromotionCategory[]
+
+  @@map("categories")
+}
+
+model Product {
+  id                String        @id @default(uuid())
+  name              String
+  slug              String        @unique
+  description       String?
+  status            ProductStatus @default(IN_STOCK)
+  flowerType        FlowerType    @default(OTHER) @map("flower_type")
+  occasion          Occasion[]
+  deliveryAvailable Boolean       @default(true) @map("delivery_available")
+  featured          Boolean       @default(false)
+  deletedAt         DateTime?     @map("deleted_at")
+  createdAt         DateTime      @default(now()) @map("created_at")
+  updatedAt         DateTime      @updatedAt @map("updated_at")
+
+  categoryId String?   @map("category_id")
+  category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  variants   ProductVariant[]
+  images     ProductImage[]
+  orderItems OrderItem[]
+  cartItems  CartItem[]
+  promotions PromotionProduct[]
+
+  @@index([categoryId])
+  @@index([flowerType])
+  @@index([status])
+  @@index([deletedAt])
+  @@map("products")
+}
+
+model ProductVariant {
+  id        String      @id @default(uuid())
+  size      VariantSize
+  price     Decimal     @db.Decimal(10, 2)
+  compareAt Decimal?    @map("compare_at") @db.Decimal(10, 2)
+  sku       String?     @unique
+  stock     Int         @default(0)
+  isDefault Boolean     @default(false) @map("is_default")
+
+  productId String  @map("product_id")
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  orderItems OrderItem[]
+  cartItems  CartItem[]
+
+  @@unique([productId, size])
+  @@map("product_variants")
+}
+
+model ProductImage {
+  id        String  @id @default(uuid())
+  url       String
+  alt       String?
+  sortOrder Int     @default(0) @map("sort_order")
+
+  productId String  @map("product_id")
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+  @@map("product_images")
+}
+
+model AddOn {
+  id          String  @id @default(uuid())
+  name        String
+  description String?
+  price       Decimal @db.Decimal(10, 2)
+  imageUrl    String? @map("image_url")
+  available   Boolean @default(true)
+
+  orderItems         OrderItemAddOn[]
+  cartItems          CartItemAddOn[]
+  customBouquetItems CustomBouquetItem[]
+
+  @@map("add_ons")
+}
+
+// ─── CART (DB-backed for authenticated users) ───
+
+model Cart {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  userId String? @unique @map("user_id")
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  items CartItem[]
+
+  @@map("carts")
+}
+
+model CartItem {
+  id       String @id @default(uuid())
+  quantity Int    @default(1)
+
+  cartId String @map("cart_id")
+  cart   Cart   @relation(fields: [cartId], references: [id], onDelete: Cascade)
+
+  productId String?         @map("product_id")
+  product   Product?        @relation(fields: [productId], references: [id])
+  variantId String?         @map("variant_id")
+  variant   ProductVariant? @relation(fields: [variantId], references: [id])
+
+  customBouquetId String?        @map("custom_bouquet_id")
+  customBouquet   CustomBouquet? @relation(fields: [customBouquetId], references: [id], onDelete: Cascade)
+
+  addOns CartItemAddOn[]
+
+  @@map("cart_items")
+}
+
+model CartItemAddOn {
+  id       String @id @default(uuid())
+  quantity Int    @default(1)
+
+  cartItemId String   @map("cart_item_id")
+  cartItem   CartItem @relation(fields: [cartItemId], references: [id], onDelete: Cascade)
+  addOnId    String   @map("add_on_id")
+  addOn      AddOn    @relation(fields: [addOnId], references: [id])
+
+  @@unique([cartItemId, addOnId])
+  @@map("cart_item_add_ons")
+}
+
+// ─── ORDERS ───
+
+model Order {
+  id          String      @id @default(uuid())
+  orderNumber String      @unique @map("order_number")
+  status      OrderStatus @default(PENDING)
+  subtotal    Decimal     @db.Decimal(10, 2)
+  deliveryFee Decimal     @default(0) @map("delivery_fee") @db.Decimal(10, 2)
+  totalPrice  Decimal     @map("total_price") @db.Decimal(10, 2)
+
+  // Delivery info
+  recipientName    String   @map("recipient_name")
+  recipientPhone   String   @map("recipient_phone")
+  recipientAddress String   @map("recipient_address")
+  deliveryDate     DateTime @map("delivery_date")
+  deliveryTime     String   @map("delivery_time")
+  isAnonymous      Boolean  @default(false) @map("is_anonymous")
+  messageCard      String?  @map("message_card")
+
+  // Customer notes
+  notes String?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Restrict)
+
+  deliverySlotId String?       @map("delivery_slot_id")
+  deliverySlot   DeliverySlot? @relation(fields: [deliverySlotId], references: [id])
+
+  referralReward ReferralReward?
+
+  items OrderItem[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([orderNumber])
+  @@map("orders")
+}
+
+model OrderItem {
+  id              String  @id @default(uuid())
+  quantity        Int
+  priceAtPurchase Decimal @map("price_at_purchase") @db.Decimal(10, 2)
+  productName     String? @map("product_name")
+  variantSize     String? @map("variant_size")
+
+  orderId String @map("order_id")
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  productId String?         @map("product_id")
+  product   Product?        @relation(fields: [productId], references: [id], onDelete: Restrict)
+  variantId String?         @map("variant_id")
+  variant   ProductVariant? @relation(fields: [variantId], references: [id])
+
+  customBouquetId String?        @map("custom_bouquet_id")
+  customBouquet   CustomBouquet? @relation(fields: [customBouquetId], references: [id], onDelete: SetNull)
+
+  addOns OrderItemAddOn[]
+
+  @@map("order_items")
+}
+
+model OrderItemAddOn {
+  id              String  @id @default(uuid())
+  quantity        Int     @default(1)
+  priceAtPurchase Decimal @map("price_at_purchase") @db.Decimal(10, 2)
+  addOnName       String  @map("add_on_name")
+
+  orderItemId String    @map("order_item_id")
+  orderItem   OrderItem @relation(fields: [orderItemId], references: [id], onDelete: Cascade)
+  addOnId     String    @map("add_on_id")
+  addOn       AddOn     @relation(fields: [addOnId], references: [id])
+
+  @@map("order_item_add_ons")
+}
+
+// ─── DELIVERY SLOTS ───
+
+model DeliverySlot {
+  id            String   @id @default(uuid())
+  date          DateTime
+  timeStart     String   @map("time_start")
+  timeEnd       String   @map("time_end")
+  maxOrders     Int      @default(10) @map("max_orders")
+  currentOrders Int      @default(0) @map("current_orders")
+  available     Boolean  @default(true)
+
+  orders Order[]
+
+  @@unique([date, timeStart, timeEnd])
+  @@map("delivery_slots")
+}
+
+// ─── REFERRALS ───
+
+model ReferralReward {
+  id           String   @id @default(uuid())
+  rewardAmount Int      @map("reward_amount")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  userId String @map("user_id")
+  user   User   @relation("ReferrerRewards", fields: [userId], references: [id])
+
+  referredUserId String @map("referred_user_id")
+  referredUser   User   @relation("ReferredUserRewards", fields: [referredUserId], references: [id])
+
+  orderId String @unique @map("order_id")
+  order   Order  @relation(fields: [orderId], references: [id])
+
+  @@map("referral_rewards")
+}
+
+// ─── PROMOTIONS ───
+
+model Promotion {
+  id            String          @id @default(uuid())
+  code          String          @unique
+  discountType  DiscountType    @map("discount_type")
+  discountValue Decimal         @map("discount_value") @db.Decimal(10, 2)
+  validFrom     DateTime        @map("valid_from")
+  validUntil    DateTime        @map("valid_until")
+  targetType    PromotionTarget @map("target_type")
+
+  usageLimit   Int? @map("usage_limit")
+  usageCount   Int  @default(0) @map("usage_count")
+  perUserLimit Int? @map("per_user_limit")
+
+  isActive  Boolean   @default(true) @map("is_active")
+  deletedAt DateTime? @map("deleted_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  products   PromotionProduct[]
+  categories PromotionCategory[]
+
+  @@map("promotions")
+}
+
+model PromotionProduct {
+  promotionId String    @map("promotion_id")
+  promotion   Promotion @relation(fields: [promotionId], references: [id], onDelete: Cascade)
+  productId   String    @map("product_id")
+  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@id([promotionId, productId])
+  @@map("promotion_products")
+}
+
+model PromotionCategory {
+  promotionId String    @map("promotion_id")
+  promotion   Promotion @relation(fields: [promotionId], references: [id], onDelete: Cascade)
+  categoryId  String    @map("category_id")
+  category    Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([promotionId, categoryId])
+  @@map("promotion_categories")
+}
+
+// ─── CUSTOM BOUQUET ───
+
+model CustomBouquet {
+  id        String   @id @default(uuid())
+  price     Decimal  @db.Decimal(10, 2)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  items      CustomBouquetItem[]
+  cartItems  CartItem[]
+  orderItems OrderItem[]
+
+  @@map("custom_bouquets")
+}
+
+model CustomBouquetItem {
+  id              String        @id @default(uuid())
+  customBouquetId String        @map("custom_bouquet_id")
+  customBouquet   CustomBouquet @relation(fields: [customBouquetId], references: [id], onDelete: Cascade)
+
+  flowerType FlowerType? @map("flower_type")
+  addOnId    String?     @map("add_on_id")
+  addOn      AddOn?      @relation(fields: [addOnId], references: [id])
+
+  quantity Int
+  price    Decimal @db.Decimal(10, 2)
+
+  @@map("custom_bouquet_items")
+}
+
+// ─── SOCIAL LINKS ───
+
+model SocialLink {
+  id        String   @id @default(uuid())
+  type      String   @unique
+  url       String
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("social_links")
+}

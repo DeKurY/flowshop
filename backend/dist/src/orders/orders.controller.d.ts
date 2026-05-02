@@ -1,0 +1,60 @@
+import { OrdersService } from './orders.service';
+import { CreateOrderDto } from './dto';
+export declare class OrdersController {
+    private readonly ordersService;
+    constructor(ordersService: OrdersService);
+    create(dto: CreateOrderDto, userId: string): Promise<{
+        id: any;
+        orderNumber: any;
+        status: any;
+        subtotal: number;
+        deliveryFee: number;
+        totalPrice: number;
+        recipientName: any;
+        recipientPhone: any;
+        recipientAddress: any;
+        deliveryDate: any;
+        deliveryTime: any;
+        isAnonymous: any;
+        messageCard: any;
+        notes: any;
+        items: any;
+        createdAt: any;
+    }>;
+    findAll(userId: string): Promise<{
+        id: any;
+        orderNumber: any;
+        status: any;
+        subtotal: number;
+        deliveryFee: number;
+        totalPrice: number;
+        recipientName: any;
+        recipientPhone: any;
+        recipientAddress: any;
+        deliveryDate: any;
+        deliveryTime: any;
+        isAnonymous: any;
+        messageCard: any;
+        notes: any;
+        items: any;
+        createdAt: any;
+    }[]>;
+    findOne(id: string, userId: string): Promise<{
+        id: any;
+        orderNumber: any;
+        status: any;
+        subtotal: number;
+        deliveryFee: number;
+        totalPrice: number;
+        recipientName: any;
+        recipientPhone: any;
+        recipientAddress: any;
+        deliveryDate: any;
+        deliveryTime: any;
+        isAnonymous: any;
+        messageCard: any;
+        notes: any;
+        items: any;
+        createdAt: any;
+    }>;
+}

@@ -1,0 +1,1153 @@
+<html lang="ru" vid="0">
+
+<head vid="1">
+    <meta charset="UTF-8" vid="2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
+    <title vid="4">Pro Buton — Premium Flower Studio</title>
+    <style vid="5">
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+
+
+
+        :root {
+
+            --bg-color: #FFFFFF;
+            --surface-color: #F4F4F4;
+            --surface-color-hover: #EBEBEB;
+            --text-main: #111111;
+            --text-muted: #666666;
+            --accent-color: #888C57;
+            --accent-hover: #727649;
+            --border-color: #E2E2E2;
+
+
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Inter', sans-serif;
+
+
+            --radius-pill: 999px;
+            --radius-card: 20px;
+            --radius-sm: 12px;
+
+
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 32px;
+            --space-xl: 64px;
+            --space-xxl: 120px;
+
+
+            --max-width: 1280px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+
+        h1,
+        h2,
+        h3,
+        .serif {
+            font-family: var(--font-serif);
+            font-weight: 400;
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: var(--space-md);
+        }
+
+        h2 {
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: var(--space-lg);
+        }
+
+        h3 {
+            font-size: 1.75rem;
+            line-height: 1.3;
+        }
+
+
+        h1 i,
+        h2 i,
+        h3 i {
+            font-style: italic;
+            color: var(--accent-color);
+            font-weight: 400;
+        }
+
+        p {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+        }
+
+        .text-xs {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 500;
+        }
+
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+        }
+
+        .section {
+            padding: var(--space-xxl) 0;
+        }
+
+        .section-sm {
+            padding: var(--space-xl) 0;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex-col {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .justify-center {
+            justify-content: center;
+        }
+
+        .gap-sm {
+            gap: var(--space-sm);
+        }
+
+        .gap-md {
+            gap: var(--space-md);
+        }
+
+        .gap-lg {
+            gap: var(--space-lg);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-lg);
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-lg);
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+        }
+
+
+
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            border-radius: var(--radius-pill);
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--text-main);
+        }
+
+        .btn-ghost {
+            background-color: var(--surface-color);
+            color: var(--text-main);
+        }
+
+        .btn-ghost:hover {
+            background-color: var(--surface-color-hover);
+        }
+
+
+        input[type="text"],
+        input[type="date"],
+        input[type="time"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            color: var(--text-main);
+            transition: border-color 0.2s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .input-pill {
+            border-radius: var(--radius-pill);
+            padding: 12px 20px;
+        }
+
+
+        .product-card {
+            background: var(--bg-color);
+            border-radius: var(--radius-card);
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.04);
+        }
+
+        .product-card .img-wrap {
+            width: 100%;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            border-radius: var(--radius-card);
+            background: var(--surface-color);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.03);
+        }
+
+        .product-card .info {
+            padding: var(--space-md) 0;
+        }
+
+        .product-card .title {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .product-card .price {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            color: var(--text-main);
+        }
+
+        .product-card .action {
+            margin-top: var(--space-md);
+            width: 100%;
+        }
+
+
+        .view {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .view.active {
+            display: block;
+            opacity: 1;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 100;
+            padding: var(--space-md) 0;
+        }
+
+        .nav-links button {
+            background: none;
+            border: none;
+            font-family: var(--font-sans);
+            font-size: 0.875rem;
+            color: var(--text-main);
+            margin: 0 var(--space-md);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .nav-links button:hover,
+        .nav-links button.active {
+            color: var(--accent-color);
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+
+
+
+        .hero-section {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: var(--surface-color);
+            border-radius: 0 0 40px 40px;
+            overflow: hidden;
+            margin-bottom: var(--space-xl);
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+        }
+
+        .horizontal-scroll {
+            display: flex;
+            overflow-x: auto;
+            gap: var(--space-md);
+            padding-bottom: var(--space-md);
+            scrollbar-width: none;
+        }
+
+        .horizontal-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .pill-card {
+            flex: 0 0 auto;
+            padding: 16px 24px;
+            background: var(--surface-color);
+            border-radius: var(--radius-pill);
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .pill-card:hover {
+            border-color: var(--accent-color);
+            background: var(--bg-color);
+        }
+
+        .configurator-block {
+            background: var(--surface-color);
+            padding: var(--space-xl);
+            border-radius: var(--radius-card);
+        }
+
+        .review-card {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: var(--space-lg);
+            border-radius: var(--radius-card);
+        }
+
+        .stars {
+            color: var(--accent-color);
+            margin-bottom: var(--space-sm);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+
+        .catalog-layout {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: var(--space-xl);
+        }
+
+        .sidebar-filter h4 {
+            font-family: var(--font-sans);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-md);
+            margin-top: var(--space-lg);
+        }
+
+        .sidebar-filter h4:first-child {
+            margin-top: 0;
+        }
+
+        .filter-list {
+            list-style: none;
+        }
+
+        .filter-list li {
+            margin-bottom: var(--space-sm);
+        }
+
+        .filter-label {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .filter-label input {
+            width: auto;
+            margin: 0;
+            accent-color: var(--accent-color);
+        }
+
+        .filter-label:hover {
+            color: var(--text-main);
+        }
+
+        .catalog-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sort-tabs {
+            display: flex;
+            gap: var(--space-md);
+        }
+
+        .sort-tab {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .sort-tab.active {
+            color: var(--text-main);
+            border-bottom: 1px solid var(--text-main);
+        }
+
+
+        .product-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xl);
+        }
+
+        .product-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .product-gallery .main-img {
+            width: 100%;
+            border-radius: var(--radius-card);
+            object-fit: cover;
+            aspect-ratio: 3/4;
+        }
+
+        .product-gallery .thumbs {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+        }
+
+        .product-gallery .thumbs img {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+
+        .product-gallery .thumbs img:hover,
+        .product-gallery .thumbs img.active {
+            opacity: 1;
+        }
+
+        .product-info {
+            position: sticky;
+            top: 100px;
+        }
+
+        .size-selector {
+            display: flex;
+            gap: var(--space-sm);
+            margin: var(--space-md) 0;
+        }
+
+        .size-btn {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .size-btn.active {
+            border-color: var(--accent-color);
+            background: var(--surface-color);
+        }
+
+        .addon-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+
+        .cart-layout {
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            gap: var(--space-xl);
+        }
+
+        .cart-item {
+            display: flex;
+            gap: var(--space-md);
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .cart-item img {
+            width: 80px;
+            height: 100px;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+        }
+
+        .cart-summary {
+            background: var(--surface-color);
+            padding: var(--space-lg);
+            border-radius: var(--radius-card);
+        }
+
+
+        footer {
+            background: var(--surface-color);
+            padding: var(--space-xl) 0;
+            margin-top: var(--space-xl);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-lg);
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-sans);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-md);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+
+<body vid="6">
+
+
+    <header vid="7">
+        <div class="container flex justify-between items-center" vid="8">
+            <div class="logo" onclick="switchView('home')" vid="9">Pro <i vid="10">Buton</i></div>
+            <nav class="nav-links flex items-center" vid="11">
+                <button onclick="switchView('catalog')" vid="12">Каталог</button>
+                <button onclick="switchView('about')" vid="13">О студии</button>
+                <button onclick="switchView('delivery')" vid="14">Доставка</button>
+            </nav>
+            <div class="flex gap-sm" vid="15">
+                <button class="btn btn-ghost" onclick="switchView('cart')" vid="16">Корзина (0)</button>
+            </div>
+        </div>
+    </header>
+
+    <main vid="17">
+
+        <section id="view-home" class="view active" vid="18">
+
+            <div class="container" vid="19">
+                <div class="hero-section" vid="20">
+                    <img src="https://images.unsplash.com/photo-1563241598-a2b16008abdc?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=2000&amp;q=80"
+                        alt="Bouquet" class="hero-bg" vid="21">
+                    <div class="hero-content" style="padding-left: 4vw;" vid="22">
+                        <h1 vid="23">Цветы для ваших <i vid="24">эмоций</i>.</h1>
+                        <p style="font-size: 1.25rem; color: #333; margin-bottom: var(--space-lg); max-width: 80%;"
+                            vid="25">Свежие авторские букеты с доставкой в день заказа. Создаем настроение в каждом
+                            лепестке.</p>
+                        <div class="flex gap-md" vid="26">
+                            <button class="btn btn-primary" onclick="switchView('catalog')" vid="27">Каталог
+                                букетов</button>
+                            <button class="btn btn-outline" onclick="switchView('catalog')" vid="28">Собрать
+                                букет</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="container section" vid="29">
+                <div class="horizontal-scroll" vid="30">
+                    <div class="pill-card text-xs" vid="31">День рождения</div>
+                    <div class="pill-card text-xs" vid="32">Признание в любви</div>
+                    <div class="pill-card text-xs" vid="33">Юбилей</div>
+                    <div class="pill-card text-xs" vid="34">Извинение</div>
+                    <div class="pill-card text-xs" vid="35">Свадьба</div>
+                    <div class="pill-card text-xs" vid="36">Для мамы</div>
+                    <div class="pill-card text-xs" vid="37">Просто так</div>
+                </div>
+            </div>
+
+
+            <div class="container section-sm" vid="38">
+                <h2 class="text-center" vid="39">Популярные <i vid="40">букеты</i></h2>
+                <div class="grid-3" vid="41">
+
+                    <div class="product-card" onclick="switchView('product')" vid="42">
+                        <div class="img-wrap" vid="43">
+                            <img src="https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
+                                alt="Bouquet" vid="44">
+                        </div>
+                        <div class="info" vid="45">
+                            <div class="title" vid="46">Нежная пастель</div>
+                            <div class="price" vid="47">4 500 ₽</div>
+                            <button class="btn btn-ghost action" vid="48">В корзину</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" onclick="switchView('product')" vid="49">
+                        <div class="img-wrap" vid="50">
+                            <img src="https://images.unsplash.com/photo-1561181286-d3fee7d55ef6?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
+                                alt="Bouquet" vid="51">
+                        </div>
+                        <div class="info" vid="52">
+                            <div class="title" vid="53">Страсть рубина</div>
+                            <div class="price" vid="54">6 200 ₽</div>
+                            <button class="btn btn-ghost action" vid="55">В корзину</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" onclick="switchView('product')" vid="56">
+                        <div class="img-wrap" vid="57">
+                            <img src="https://images.unsplash.com/photo-1526047932273-341f2a7631f9?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
+                                alt="Bouquet" vid="58">
+                        </div>
+                        <div class="info" vid="59">
+                            <div class="title" vid="60">Весеннее утро</div>
+                            <div class="price" vid="61">3 800 ₽</div>
+                            <button class="btn btn-ghost action" vid="62">В корзину</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="container section" vid="63">
+                <div class="grid-2" vid="64">
+                    <div class="flex-col justify-between" vid="65">
+                        <div vid="66">
+                            <h2 vid="67">Выбор по <i vid="68">бюджету</i></h2>
+                            <p class="mb-lg" vid="69">Найдите идеальный вариант под ваш запрос.</p>
+                        </div>
+                        <div class="grid-2" style="gap: var(--space-sm);" vid="70">
+                            <div class="pill-card text-center" vid="71">До 3000 ₽</div>
+                            <div class="pill-card text-center" vid="72">3000–5000 ₽</div>
+                            <div class="pill-card text-center" vid="73">5000–8000 ₽</div>
+                            <div class="pill-card text-center" style="background: var(--text-main); color: white;"
+                                vid="74">Премиум</div>
+                        </div>
+                    </div>
+                    <div class="configurator-block" vid="75">
+                        <h3 class="mb-md" vid="76">Соберите свой <i vid="77">букет</i></h3>
+                        <div class="flex-col gap-md" vid="78">
+                            <select vid="79">
+                                <option vid="80">Цветовая гамма</option>
+                                <option vid="81">Белые</option>
+                                <option vid="82">Розовые</option>
+                            </select>
+                            <select vid="83">
+                                <option vid="84">Размер букета</option>
+                                <option vid="85">Средний (M)</option>
+                                <option vid="86">Большой (L)</option>
+                            </select>
+                            <select vid="87">
+                                <option vid="88">Бюджет</option>
+                                <option vid="89">Любой</option>
+                            </select>
+                            <button class="btn btn-primary" style="width: 100%;" vid="90">Подобрать варианты</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="container section-sm" style="border-top: 1px solid var(--border-color);" vid="91">
+                <div class="grid-4 text-center" vid="92">
+                    <div vid="93">
+                        <h3 class="serif mb-sm" vid="94">2 ч.</h3>
+                        <p class="text-sm" vid="95">Доставка за 2 часа</p>
+                    </div>
+                    <div vid="96">
+                        <h3 class="serif mb-sm" vid="97">100%</h3>
+                        <p class="text-sm" vid="98">Свежие цветы каждый день</p>
+                    </div>
+                    <div vid="99">
+                        <h3 class="serif mb-sm" vid="100">Фото</h3>
+                        <p class="text-sm" vid="101">Фото букета перед отправкой</p>
+                    </div>
+                    <div vid="102">
+                        <h3 class="serif mb-sm" vid="103">0 ₽</h3>
+                        <p class="text-sm" vid="104">Бесплатная открытка</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="view-catalog" class="view" vid="105">
+            <div class="container section-sm" vid="106">
+
+                <div class="catalog-top" vid="107">
+                    <input type="text" class="input-pill" placeholder="Поиск букетов..." style="max-width: 300px;"
+                        vid="108">
+                    <div class="sort-tabs" vid="109">
+                        <div class="sort-tab active" vid="110">Популярные</div>
+                        <div class="sort-tab" vid="111">Новые</div>
+                        <div class="sort-tab" vid="112">По цене</div>
+                    </div>
+                </div>
+
+                <div class="catalog-layout" vid="113">
+
+                    <aside class="sidebar-filter" vid="114">
+                        <h4 vid="115">Цена, ₽</h4>
+                        <input type="range" min="1000" max="15000" style="width: 100%; margin-bottom: var(--space-md);"
+                            vid="116">
+
+                        <h4 vid="117">Размер</h4>
+                        <ul class="filter-list" vid="118">
+                            <li vid="119"><label class="filter-label" vid="120"><input type="checkbox" vid="121">
+                                    Маленький (S)</label></li>
+                            <li vid="122"><label class="filter-label" vid="123"><input type="checkbox" checked=""
+                                        vid="124"> Средний (M)</label></li>
+                            <li vid="125"><label class="filter-label" vid="126"><input type="checkbox" vid="127">
+                                    Большой (L)</label></li>
+                            <li vid="128"><label class="filter-label" vid="129"><input type="checkbox" vid="130"> Гигант
+                                    (XL)</label></li>
+                        </ul>
+
+                        <h4 vid="131">Тип цветов</h4>
+                        <ul class="filter-list" vid="132">
+                            <li vid="133"><label class="filter-label" vid="134"><input type="checkbox" vid="135">
+                                    Розы</label></li>
+                            <li vid="136"><label class="filter-label" vid="137"><input type="checkbox" vid="138">
+                                    Пионы</label></li>
+                            <li vid="139"><label class="filter-label" vid="140"><input type="checkbox" vid="141">
+                                    Тюльпаны</label></li>
+                            <li vid="142"><label class="filter-label" vid="143"><input type="checkbox" vid="144">
+                                    Гортензии</label></li>
+                        </ul>
+
+                        <div class="mt-lg" vid="145">
+                            <label class="filter-label"
+                                style="background: var(--surface-color); padding: 12px; border-radius: var(--radius-sm);"
+                                vid="146">
+                                <input type="checkbox" vid="147"> <b vid="148">Доставка сегодня</b>
+                            </label>
+                        </div>
+                    </aside>
+
+
+                    <div class="grid-3" style="align-items: start;" vid="149">
+
+                        <div class="product-card" onclick="switchView('product')" vid="150">
+                            <div class="img-wrap" vid="151"><img
+                                    src="https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
+                                    alt="Bouquet" vid="152"></div>
+                            <div class="info" vid="153">
+                                <div class="title" vid="154">Нежная пастель</div>
+                                <div class="price" vid="155">4 500 ₽</div>
+                            </div>
+                        </div>
+                        <div class="product-card" onclick="switchView('product')" vid="156">
+                            <div class="img-wrap" vid="157"><img
+                                    src="https://images.unsplash.com/photo-1561181286-d3fee7d55ef6?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
+                                    alt="Bouquet" vid="158"></div>
+                            <div class="info" vid="159">
+                                <div class="title" vid="160">Страсть рубина</div>
+                                <div class="price" vid="161">6 200 ₽</div>
+                            </div>
+                        </div>
+                        <div class="product-card" onclick="switchView('product')" vid="162">
+                            <div class="img-wrap" vid="163"><img
+                                    src="https://images.unsplash.com/photo-1526047932273-341f2a7631f9?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
+                                    alt="Bouquet" vid="164"></div>
+                            <div class="info" vid="165">
+                                <div class="title" vid="166">Весеннее утро</div>
+                                <div class="price" vid="167">3 800 ₽</div>
+                            </div>
+                        </div>
+                        <div class="product-card" onclick="switchView('product')" vid="168">
+                            <div class="img-wrap" vid="169"><img
+                                    src="https://images.unsplash.com/photo-1508611105073-4564c74f5195?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80"
+                                    alt="Bouquet" vid="170"></div>
+                            <div class="info" vid="171">
+                                <div class="title" vid="172">Полевой шик</div>
+                                <div class="price" vid="173">5 100 ₽</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="view-product" class="view" vid="174">
+            <div class="container section-sm" vid="175">
+                <button class="btn btn-ghost mb-lg" onclick="switchView('catalog')" vid="176">← Назад в каталог</button>
+                <div class="product-split" vid="177">
+
+                    <div class="product-gallery" vid="178">
+                        <img src="https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80"
+                            class="main-img" alt="Main" vid="179">
+                        <div class="thumbs" vid="180">
+                            <img src="https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?ixlib=rb-4.0.3&amp;w=200&amp;q=80"
+                                class="active" vid="181">
+                            <img src="https://images.unsplash.com/photo-1561181286-d3fee7d55ef6?ixlib=rb-4.0.3&amp;w=200&amp;q=80"
+                                vid="182">
+                            <img src="https://images.unsplash.com/photo-1526047932273-341f2a7631f9?ixlib=rb-4.0.3&amp;w=200&amp;q=80"
+                                vid="183">
+                        </div>
+                    </div>
+
+
+                    <div class="product-info" vid="184">
+                        <h2 vid="185">Нежная <i vid="186">пастель</i></h2>
+                        <h3 class="mb-lg" style="font-size: 2rem;" vid="187">4 500 ₽</h3>
+
+                        <p class="mb-md" vid="188">Авторский букет в пастельных тонах. Идеально подходит для
+                            романтического свидания или в качестве знака внимания. В составе: французские розы, эустома,
+                            эвкалипт, дизайнерская упаковка.</p>
+
+                        <div class="mb-lg" vid="189">
+                            <div class="text-xs mb-sm" vid="190">Размер</div>
+                            <div class="size-selector" vid="191">
+                                <div class="size-btn" vid="192">S (30 см)</div>
+                                <div class="size-btn active" vid="193">M (40 см)</div>
+                                <div class="size-btn" vid="194">L (50 см)</div>
+                            </div>
+                        </div>
+
+                        <div class="mb-lg"
+                            style="border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: var(--space-md) 0;"
+                            vid="195">
+                            <div class="text-xs mb-sm" vid="196">Дополнения</div>
+                            <div class="addon-item" vid="197">
+                                <label class="filter-label" vid="198"><input type="checkbox" vid="199"> Бесплатная
+                                    открытка</label>
+                                <span class="text-sm" vid="200">0 ₽</span>
+                            </div>
+                            <div class="addon-item" vid="201">
+                                <label class="filter-label" vid="202"><input type="checkbox" vid="203"> Шоколад ручной
+                                    работы</label>
+                                <span class="text-sm" vid="204">+ 800 ₽</span>
+                            </div>
+                        </div>
+
+                        <div class="grid-2 mb-md" vid="205">
+                            <div vid="206">
+                                <div class="text-xs mb-sm" vid="207">Дата доставки</div>
+                                <input type="date" vid="208">
+                            </div>
+                            <div vid="209">
+                                <div class="text-xs mb-sm" vid="210">Время</div>
+                                <select vid="211">
+                                    <option vid="212">9:00 - 12:00</option>
+                                    <option vid="213">12:00 - 15:00</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-lg" vid="214">
+                            <div class="text-xs mb-sm" vid="215">Текст для открытки</div>
+                            <textarea rows="3" placeholder="Напишите теплые слова..." vid="216"></textarea>
+                            <label class="filter-label mt-sm" vid="217"><input type="checkbox" vid="218"> Анонимная
+                                доставка</label>
+                        </div>
+
+                        <button class="btn btn-primary" style="width: 100%; padding: 20px;" onclick="switchView('cart')"
+                            vid="219">Добавить в корзину</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="view-cart" class="view" vid="220">
+            <div class="container section-sm" vid="221">
+                <h2 class="mb-lg" vid="222">Оформление <i vid="223">заказа</i></h2>
+
+                <div class="cart-layout" vid="224">
+
+                    <div class="flex-col gap-lg" vid="225">
+                        <div vid="226">
+                            <h3 class="serif mb-md" vid="227">Ваш заказ</h3>
+                            <div class="cart-item" vid="228">
+                                <img src="https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?ixlib=rb-4.0.3&amp;w=200&amp;q=80"
+                                    alt="Item" vid="229">
+                                <div class="flex-col justify-between flex-1" vid="230">
+                                    <div class="flex justify-between" vid="231">
+                                        <div class="title" style="font-weight: 500;" vid="232">Нежная пастель (Размер M)
+                                        </div>
+                                        <div class="serif" vid="233">4 500 ₽</div>
+                                    </div>
+                                    <div class="text-sm text-muted" vid="234">Удалить</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div vid="235">
+                            <h3 class="serif mb-md" vid="236">Данные получателя</h3>
+                            <div class="grid-2 mb-md" vid="237">
+                                <input type="text" placeholder="Имя получателя" vid="238">
+                                <input type="text" placeholder="Телефон" vid="239">
+                            </div>
+                            <input type="text" placeholder="Адрес доставки (Улица, дом, квартира)" class="mb-md"
+                                vid="240">
+                            <textarea rows="2" placeholder="Комментарий курьеру" vid="241"></textarea>
+                        </div>
+                    </div>
+
+
+                    <div vid="242">
+                        <div class="cart-summary sticky" style="top: 100px;" vid="243">
+                            <h3 class="serif mb-md" vid="244">Итого</h3>
+                            <div class="flex justify-between mb-sm text-sm" vid="245"><span vid="246">Товары
+                                    (1)</span><span vid="247">4 500 ₽</span></div>
+                            <div class="flex justify-between mb-md text-sm" vid="248"><span
+                                    vid="249">Доставка</span><span vid="250">Бесплатно</span></div>
+                            <div class="flex justify-between mb-lg"
+                                style="font-size: 1.5rem; border-top: 1px solid var(--border-color); padding-top: var(--space-md);"
+                                vid="251">
+                                <span class="serif" vid="252">К оплате</span><span class="serif" vid="253">4 500
+                                    ₽</span>
+                            </div>
+                            <button class="btn btn-primary" style="width: 100%; padding: 16px;" vid="254">Оплатить
+                                заказ</button>
+                            <p class="text-xs text-center mt-md text-muted" style="text-transform: none;" vid="255">
+                                Нажимая кнопку, вы соглашаетесь с условиями обработки данных.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="view-about" class="view" vid="256">
+            <div class="container section" vid="257">
+                <div style="max-width: 800px; margin: 0 auto; text-align: center;" vid="258">
+                    <h2 vid="259">Искусство <i vid="260">флористики</i></h2>
+                    <img src="https://images.unsplash.com/photo-1559863486-d24cdb9f0d0d?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=1200&amp;q=80"
+                        style="width: 100%; border-radius: var(--radius-card); margin: var(--space-lg) 0;" vid="261">
+                    <p style="font-size: 1.1rem; line-height: 1.8;" vid="262">Каждый букет в Pro Buton собирается
+                        вручную нашими флористами. Мы тщательно отбираем свежие цветы каждое утро, чтобы гарантировать
+                        идеальное качество. Наша цель — передать ваши самые искренние эмоции через эстетику природных
+                        форм.</p>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="view-delivery" class="view" vid="263">
+            <div class="container section" vid="264">
+                <div style="max-width: 800px; margin: 0 auto;" vid="265">
+                    <h2 vid="266">Условия <i vid="267">доставки</i></h2>
+                    <div class="grid-2 mt-lg" vid="268">
+                        <div class="review-card" vid="269">
+                            <h3 class="serif mb-sm" vid="270">По городу</h3>
+                            <p vid="271">Бесплатная доставка при заказе от 3000 ₽. Время доставки от 2 часов с момента
+                                подтверждения заказа.</p>
+                        </div>
+                        <div class="review-card" vid="272">
+                            <h3 class="serif mb-sm" vid="273">По области</h3>
+                            <p vid="274">Стоимость рассчитывается индивидуально оператором. Доставка в течение дня.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+    <footer vid="275">
+        <div class="container footer-grid" vid="276">
+            <div class="footer-col" vid="277">
+                <div class="logo mb-md" vid="278">Pro <i vid="279">Buton</i></div>
+                <p class="text-sm" vid="280">Премиальная студия флористики и доставки эмоций.</p>
+            </div>
+            <div class="footer-col" vid="281">
+                <h4 vid="282">Каталог</h4>
+                <ul vid="283">
+                    <li vid="284">Популярное</li>
+                    <li vid="285">Сборные букеты</li>
+                    <li vid="286">Монобукеты</li>
+                    <li vid="287">Подарки</li>
+                </ul>
+            </div>
+            <div class="footer-col" vid="288">
+                <h4 vid="289">Информация</h4>
+                <ul vid="290">
+                    <li onclick="switchView('about')" style="cursor:pointer;" vid="291">О студии</li>
+                    <li onclick="switchView('delivery')" style="cursor:pointer;" vid="292">Доставка и оплата</li>
+                    <li vid="293">Отзывы</li>
+                    <li vid="294">Контакты</li>
+                </ul>
+            </div>
+            <div class="footer-col" vid="295">
+                <h4 vid="296">Контакты</h4>
+                <ul vid="297">
+                    <li vid="298">+7 (999) 123-45-67</li>
+                    <li vid="299">WhatsApp</li>
+                    <li vid="300">Telegram</li>
+                    <li class="mt-sm text-xs" vid="301">ул. Цветочная, 15, Москва</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script vid="302">
+        function switchView(viewId) {
+
+            document.querySelectorAll('.view').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            document.getElementById('view-' + viewId).classList.add('active');
+
+
+            document.querySelectorAll('.nav-links button').forEach(el => {
+                el.classList.remove('active');
+                if (el.getAttribute('onclick').includes(viewId)) {
+                    el.classList.add('active');
+                }
+            });
+
+
+            window.scrollTo(0, 0);
+        }
+    </script>
+
+</body>
+
+</html>
